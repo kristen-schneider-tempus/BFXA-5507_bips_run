@@ -1,3 +1,5 @@
+-- 
+
 SELECT distinct a.id as analysis_id, isolate_id, orderhub_id, patient_id, run_id, a.assay, fastq_url
 FROM tl-zbxsrcj1dc7fc02q7htg.src_bioinformatics.analysis a
          join tl-zbxsrcj1dc7fc02q7htg.src_bioinformatics.analysis_run ar on ar.analysis_id = a.id
