@@ -69,6 +69,8 @@ def get_bioinfdb_query_data(bioinf_db_csv,
     @param return field_dict: list of fields from SQL query
     '''
 
+    # TODO: make it so that only unique IDs are included
+
     field_dict = dict()
 
     f = open(bioinf_db_csv, 'r')
@@ -139,7 +141,10 @@ def write_output_bips(bips_input_file,
                       bips_output_dict,
                       num_records): 
     '''
-    TODO
+    Writes out a file which can be used as input for BIPS.
+    @param bips_input_file: output file path
+    @param bips_output_dict: dictionary containing BIPS data
+    @param num_records: number of records to write
     '''  
     # write out to a bips_input file
     o = open(bips_input_file, 'w')
@@ -160,7 +165,6 @@ def write_output_bips(bips_input_file,
             else:
                 record_string += ',' + bips_output_dict[bf_][r]
         o.write(record_string + '\n')
-
 
 if __name__ == '__main__':
     main()
