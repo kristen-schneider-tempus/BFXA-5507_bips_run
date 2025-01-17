@@ -1,4 +1,4 @@
-input_bips_csv='/Users/kristen.schneider/Research/unattached_tickets/BFXA-5507_bips_run/data/bquxjob_24ab7304_1947033446c-bips_input.csv'
+input_bips_csv='/Users/kristen.schneider/Research/unattached_tickets/BFXA-5507_bips_run/data/bquxjob_24ab7304_1947033446c-bips_input_manual.csv'
 
 bips $input_bips_csv \ 
     --log-dir ./ \
