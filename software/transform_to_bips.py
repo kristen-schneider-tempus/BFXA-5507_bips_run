@@ -16,24 +16,25 @@ def get_args():
                         required=True, help='Input SQL query file')
     parser.add_argument('-o', '--output', type=str,
                         required=True, help='file to write out new bips query')
-    parser.add_argument('-n', '--num_records', type=int,
-                        required=True, help='number of records to write out')
-    parser.add_argument('-b', '--orderhub_id', type=str, required=False,
-                        default='', help='orderhub ID')
-    parser.add_argument('-f', '--gcs_tumor_fastq_url', type=str, required=False,
-                        default='', help='fastq url from gc')
-    parser.add_argument('-c', '--cancer_type', type=str, required=False,
-                        default='Tumor of Unknown Origin', help='cancer type')
-    parser.add_argument('-a', '--assay', type=str, required=False,
-                        default='', help='assay type')
-    parser.add_argument('-l', '--analyte', type=str, required=False,
-                        default='rna', help='analyte type')
-    parser.add_argument('-m', '--match_type', type=str, required=False,
-                        default='tumor_only', help='tumor-normal match type')
-    parser.add_argument('-t', '--intent', type=str, required=False,
-                        default='rad', help='intent')
-    parser.add_argument('-s', '--control_sample_type', type=str, required=False, 
-                        default='', help='control sample tyoe')
+    # parser.add_argument('-n', '--num_records', type=int,
+    #                     required=True, help='number of records to write out')
+    # parser.add_argument('-b', '--orderhub_id', type=str, required=False,
+    #                     default='', help='orderhub ID')
+    # parser.add_argument('-f', '--gcs_tumor_fastq_url', type=str, required=False,
+    #                     default='', help='fastq url from gc')
+    # parser.add_argument('-c', '--cancer_type', type=str, required=False,
+    #                     default='Tumor of Unknown Origin', help='cancer type')
+    # parser.add_argument('-a', '--assay', type=str, required=False,
+    #                     default='', help='assay type')
+    # parser.add_argument('-l', '--analyte', type=str, required=False,
+    #                     default='rna', help='analyte type')
+    # parser.add_argument('-m', '--match_type', type=str, required=False,
+    #                     default='tumor_only', help='tumor-normal match type')
+    # parser.add_argument('-t', '--intent', type=str, required=False,
+    #                     default='rad', help='intent')
+    # parser.add_argument('-s', '--control_sample_type', type=str, required=False, 
+    #                     default='', help='control sample type')
+
     return parser.parse_args()
 
 def main():
