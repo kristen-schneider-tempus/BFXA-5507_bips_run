@@ -179,12 +179,9 @@ def write_to_csv(extracted_fields_headers,
     '''
     with open(output, 'w') as f:
         f.write(','.join(extracted_fields_headers) + '\n')
-        print(','.join(extracted_fields_headers) + '\n')
         for orderhub_id in csv_dict:
             f.write(orderhub_id + ',')
-            print(orderhub_id + ',')
             f.write(','.join([str(x) for x in csv_dict[orderhub_id]]) + '\n')
-            print(','.join([str(x) for x in csv_dict[orderhub_id]]) + '\n')
 
 if __name__ == '__main__':
     main()
