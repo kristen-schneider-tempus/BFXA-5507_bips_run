@@ -135,7 +135,6 @@ def parse_bips_log(bips_log_file,
         else:
             if sub_category == 'cloudDestination':
                 sub_category_value = sub_category_value[0].replace("'", "")
-                sub_category_value = sub_category_value[0].replace("'", "")
             
             extracted_fields_headers.append(sub_category)
             extracted_fields_values.append(sub_category_value)
