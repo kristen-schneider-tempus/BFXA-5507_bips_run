@@ -73,6 +73,7 @@ bips xxx-xxx-xxx-bips_input.csv
 ## Step 6: Conver BiPS output logs into a csv
 
 # BFXA-562_MYB_execution
+[Link to jira ticket](https://tempuslabs.atlassian.net/browse/BFXA-5655?atlOrigin=eyJpIjoiOTZmYTYwNmJjYmFjNDM1ZmE2OGM0YTVjMjY4YjcxZjciLCJwIjoiaiJ9)
 [HOWTO execute xR IVD MYB-Mike Skaro](https://docs.google.com/spreadsheets/d/1oLOWrjKuH02oPkxUlfY7oEnN2jDbKNXWFIXBLEXbutM/edit?gid=0#gid=0)
 
 [MYB-poison-exon-detecction Repository](https://github.com/tempuslabs/bioinf-myb-poison-exon-detection])
@@ -99,6 +100,7 @@ nohup ./rp-flow/runFromSampleSheet.sh
 - !! Wait for MYB to complete running !!
 ### TODO: add which analysis-id to look for in output, nohub, and slack
 - Check status on slack [`#rp-flow-nf-bet channel`](https://tempuslabs.enterprise.slack.com/archives/C078RJ27A1J).
+- Check status in [GC Job List](https://console.cloud.google.com/batch/jobs?invt=AboEhQ&project=tl-8ud1o1f9kjgpk29tjvkx))
 
 ## Step 4: 
 ```
