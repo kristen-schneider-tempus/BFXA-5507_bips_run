@@ -1,5 +1,5 @@
-# BFXA-5507_bips_run
-[Link to jira ticket](https://tempuslabs.atlassian.net/jira/software/c/projects/BFXA/boards/1249?assignee=712020%3Afe369597-023a-4144-a1f8-84df1cca7bd4&selectedIssue=BFXA-5606&useStoredSettings=true) 
+# BIPS run
+[Link to jira ticket BFXA-5507](https://tempuslabs.atlassian.net/jira/software/c/projects/BFXA/boards/1249?assignee=712020%3Afe369597-023a-4144-a1f8-84df1cca7bd4&selectedIssue=BFXA-5606&useStoredSettings=true) 
 
 ## Step 1: Look in bioinf_db for the orderhubIds of interest
 ### Google BigQuery
@@ -19,7 +19,7 @@ where a.orderhub_id in ("24klbrrb","24igsasz","24jmbscz", ...)
 Use the output from the Google BigQuery search to check if the samples exist in beta.
 ```
 bash software/check_gcloud.sh 
-    /paht/to/GBQ_output.csv
+    /path/to/GBQ_output.csv
 ```
 
 ## Step 2.2: ts to ts transfer if samples do not exist in beta
@@ -32,26 +32,26 @@ TODO: finish the script to transfer the samples from ts to ts
 Use the output from the Google BigQuery search to find the unique set of samples with a given assay and analyte.
 ```
 bash software/filter_unique.sh 
-    /paht/to/GBQ_output.csv
+    /path/to/GBQ_output.csv
     <assay>
     <analyte>
 ```
-## Step 4: Transform the bioinf_db Google BigQuery (or DataGrip) to BiPS input
-TODO: finish the script to transform the bioinf_db Google BigQuery (or DataGrip) to BiPS input
-The output from the Google BigQuery search needs to be transformed into an acceptable format for BiPS as input. See example BiPS input [here](https://drive.google.com/drive/folders/1ppnUbq6udZSWzeRJ_zx5xv92QstRfC-3). 
+## Step 4: Transform the bioinf_db Google BigQuery (or DataGrip) to BIPS input
+TODO: finish the script to transform the bioinf_db Google BigQuery (or DataGrip) to BIPS input
+The output from the Google BigQuery search needs to be transformed into an acceptable format for BIPS as input. See example BIPS input [here](https://drive.google.com/drive/folders/1ppnUbq6udZSWzeRJ_zx5xv92QstRfC-3). 
 
 ```
 python transform_bips_input.py
-    - i TODO
-    - o TODO
-    - ... TODO
+    -i TODO
+    -o TODO
+    -... TODO
 ```
 
-## Step 5: Run BiPS
-[BiPS](https://docs.google.com/document/d/1VwEUHJdGHYeyPJwR0_43xiAnZmye46Vmo6CFVyXw7OQ/edit?tab=t.0) is a Tempus pipeline tool that is used to ...TODO
-- Read more about BiPS [here](https://github.com/tempuslabs/bioinf-analysis-utils/tree/develop/doc/src/orch/bips_adapter).
-- Find examples for BiPS input and transformoverride [here](https://drive.google.com/drive/folders/1TuARTyG3x3z9KszmUMZRuxvE5A1F6Wlc).
-- Look in splunk [here](https://tempus.splunkcloud.com/en-US/app/search/transform_execution_and_logs_by_analysis_id?form.timespan.earliest=-24h&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.transform-harness.harness.transform-harness&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.dps.dps-provider&form.severity_token=level%3Ddebug&form.severity_token=level%3Dinfo&form.severity_token=level%3D%22warn*%22&form.severity_token=level%3Derror&form.selectedanalysisid=agkhkshxzjfn3gxvjcibo2ba5m) and [here](https://tempus.splunkcloud.com/en-US/app/search/cs_transformhub_transforms_by_execution_id?form.timespan.earliest=%40y&form.timespan.latest=now&form.log_type_token=NOT%20loggerName%3Dopt.tempus.transform.harness.node_modules.%40tempus.transformhub-tools.dist.lib.utils.performance-measures&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.dps.dps-provider&form.severity_token=level%3Derror&form.execution_id=d20178f7-0ac4-4611-8908-d8d86addc1c6) for more information about an BiPS run.
+## Step 5: Run BIPs
+[BIPS](https://docs.google.com/document/d/1VwEUHJdGHYeyPJwR0_43xiAnZmye46Vmo6CFVyXw7OQ/edit?tab=t.0) is a Tempus pipeline tool that is used to ...TODO
+- Read more about BIPS [here](https://github.com/tempuslabs/bioinf-analysis-utils/tree/develop/doc/src/orch/bips_adapter).
+- Find examples for BIPS input and transformoverride [here](https://drive.google.com/drive/folders/1TuARTyG3x3z9KszmUMZRuxvE5A1F6Wlc).
+- Look in splunk [here](https://tempus.splunkcloud.com/en-US/app/search/transform_execution_and_logs_by_analysis_id?form.timespan.earliest=-24h&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.transform-harness.harness.transform-harness&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.dps.dps-provider&form.severity_token=level%3Ddebug&form.severity_token=level%3Dinfo&form.severity_token=level%3D%22warn*%22&form.severity_token=level%3Derror&form.selectedanalysisid=agkhkshxzjfn3gxvjcibo2ba5m) and [here](https://tempus.splunkcloud.com/en-US/app/search/cs_transformhub_transforms_by_execution_id?form.timespan.earliest=%40y&form.timespan.latest=now&form.log_type_token=NOT%20loggerName%3Dopt.tempus.transform.harness.node_modules.%40tempus.transformhub-tools.dist.lib.utils.performance-measures&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.dps.dps-provider&form.severity_token=level%3Derror&form.execution_id=d20178f7-0ac4-4611-8908-d8d86addc1c6) for more information about an BIPS run.
 
 ```
 TODO: finish the script to runs bips
@@ -70,16 +70,17 @@ bips xxx-xxx-xxx-bips_input.csv
     --env staging
 ```
 
-## Step 6: Conver BiPS output logs into a csv
+## Step 6: Conver BIPS output logs into a csv
 
-# BFXA-562_MYB_execution
-[Link to jira ticket](https://tempuslabs.atlassian.net/browse/BFXA-5655?atlOrigin=eyJpIjoiOTZmYTYwNmJjYmFjNDM1ZmE2OGM0YTVjMjY4YjcxZjciLCJwIjoiaiJ9)
+# MYB_execution
+[Link to jira ticket BFXA-5655](https://tempuslabs.atlassian.net/browse/BFXA-5655?atlOrigin=eyJpIjoiOTZmYTYwNmJjYmFjNDM1ZmE2OGM0YTVjMjY4YjcxZjciLCJwIjoiaiJ9)
+
 [HOWTO execute xR IVD MYB-Mike Skaro](https://docs.google.com/spreadsheets/d/1oLOWrjKuH02oPkxUlfY7oEnN2jDbKNXWFIXBLEXbutM/edit?gid=0#gid=0)
 
 [MYB-poison-exon-detecction Repository](https://github.com/tempuslabs/bioinf-myb-poison-exon-detection])
 
-## Step 1: Get list of sample IDs from BiPS output csv
-Use the output from the BiPS run to extract the sample IDs (analysis-id).
+## Step 1: Get list of sample IDs from BIPS output csv
+Use the output from the BIPS run to extract the sample IDs (analysis-id).
 ```
 python software/extract_id
     -i bips_output.csv
@@ -90,7 +91,7 @@ python software/extract_id
 
 ```
 nohup ./rp-flow/runFromSampleSheet.sh
-    sameple_ids.txt
+    sample_ids.txt
     output.txt &
 ```
 
@@ -102,16 +103,17 @@ nohup ./rp-flow/runFromSampleSheet.sh
 - Check status on slack [`#rp-flow-nf-bet channel`](https://tempuslabs.enterprise.slack.com/archives/C078RJ27A1J).
 - Check status in [GC Job List](https://console.cloud.google.com/batch/jobs?invt=AboP2g&project=tl-8ud1o1f9kjgpk29tjvkx&inv=1)). _I like to search for "myb-poison" in the search bar to find the jobs that I ran_.
 - Connecting #rp-flow-nf-bet to job list to dps search...
-1. Go to the job list and find the ID at the end of the Job name
-2. Go to #rp-flow-nf-bet and search for the ID (taskId)
-3. In the nohup.out file, there will be a session id associated with id / analysis-id
+---------------
+-  Go to the job list and find the ID at the end of the Job name
+- Go to #rp-flow-nf-bet and search for the ID (taskId)
+- In the nohup.out file, there will be a session id associated with id / analysis-id
 
 
 ## Step 4: 
 Parse nohup.out to get a list of `nextflowSessionId,rfnd-combined-myb-expression-features,sre_star_splice_junction,sre_expression_gene_normalized,sre_bam_rna_pseudobam,sre_rna_qc_summary_stat`.
 ```
 ./rp-flow/parseNoHup.sh
-    nohup.out \
+    nohup.out
     parsedNoHup.csv
 ```
 
@@ -135,6 +137,7 @@ nextflowSessionId="$(grep 'nextflowSessionId' $input_data |
     tr -d '"' | 
     tr -d ',')"
 
+# search for data product rfnd-combined-myb-expression-features by using the nexflowSessionId as the workflow
 dataProductID="$(dps search --metadata workflow-id=$record -m type=rfnd-combined-myb-expression-features |
     grep '"id":' |
     head -n 1 |
@@ -143,6 +146,7 @@ dataProductID="$(dps search --metadata workflow-id=$record -m type=rfnd-combined
     tr -d '"' | 
     tr -d ',')"
 
+# download the data product by its id
 dps download 
     --id $dataProductID 
     --download-dir "dataProducts/"
