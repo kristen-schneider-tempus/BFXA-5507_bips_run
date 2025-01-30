@@ -73,6 +73,7 @@ bips xxx-xxx-xxx-bips_input.csv
 ## Step 6: Conver BiPS output logs into a csv
 
 # BFXA-562_MYB_execution
+[Link to jira ticket](https://tempuslabs.atlassian.net/browse/BFXA-5655?atlOrigin=eyJpIjoiOTZmYTYwNmJjYmFjNDM1ZmE2OGM0YTVjMjY4YjcxZjciLCJwIjoiaiJ9)
 [HOWTO execute xR IVD MYB-Mike Skaro](https://docs.google.com/spreadsheets/d/1oLOWrjKuH02oPkxUlfY7oEnN2jDbKNXWFIXBLEXbutM/edit?gid=0#gid=0)
 
 [MYB-poison-exon-detecction Repository](https://github.com/tempuslabs/bioinf-myb-poison-exon-detection])
@@ -99,8 +100,27 @@ nohup ./rp-flow/runFromSampleSheet.sh
 - !! Wait for MYB to complete running !!
 ### TODO: add which analysis-id to look for in output, nohub, and slack
 - Check status on slack [`#rp-flow-nf-bet channel`](https://tempuslabs.enterprise.slack.com/archives/C078RJ27A1J).
+- Check status in [GC Job List](https://console.cloud.google.com/batch/jobs?invt=AboP2g&project=tl-8ud1o1f9kjgpk29tjvkx&inv=1)). _I like to search for "myb-poison" in the search bar to find the jobs that I ran_.
+- Connecting #rp-flow-nf-bet to job list to dps search...
+1. Go to the job list and find the ID at the end of the Job name
+2. Go to #rp-flow-nf-bet and search for the ID (taskId)
+3. In the nohup.out file, there will be a session id associated with id / analysis-id
+
 
 ## Step 4: 
+Parse nohup.out to get a list of `nextflowSessionId,rfnd-combined-myb-expression-features,sre_star_splice_junction,sre_expression_gene_normalized,sre_bam_rna_pseudobam,sre_rna_qc_summary_stat`.
+```
+./rp-flow/parseNoHup.sh
+    nohup.out \
+    parsedNoHup.csv
+```
+
+## Step 5:
+```
+
+```
+
+## Step 6:
 ```
 mkdir dataProducts
 ./rp-flow/parseSampleSheetoutput.sh 
