@@ -116,16 +116,41 @@ Parse nohup.out to get a list of `nextflowSessionId,rfnd-combined-myb-expression
 ```
 
 ## Step 5:
+Download the data products matching `type=rfnd-combined-myb-expression-features`
+```
+mkdir dataProducts
+
+./rp-flow/parseSampleSheetoutput.sh
+    nohup.out
+
+gunzip dataProducts/*.gz
 ```
 
+Internally, `parseSampleSheetoutput.sh` is running:
+```
+# Get a list of unique nextflowSessionIds
+nextflowSessionId="$(grep 'nextflowSessionId' $input_data | 
+    cut -f 2 -d ":" | 
+    tr -d ' ' | 
+    tr -d '"' | 
+    tr -d ',')"
+
+dataProductID="$(dps search --metadata workflow-id=$record -m type=rfnd-combined-myb-expression-features |
+    grep '"id":' |
+    head -n 1 |
+    cut -f 2 -d ":" | 
+    tr -d ' ' | 
+    tr -d '"' | 
+    tr -d ',')"
+
+dps download 
+    --id $dataProductID 
+    --download-dir "dataProducts/"
 ```
 
 ## Step 6:
+Combine the `type=rfnd-combined-myb-expression-features` data products into a single file
 ```
-mkdir dataProducts
-./rp-flow/parseSampleSheetoutput.sh 
-    nohup.out
-gunzip dataProducts/*.gz
 ./rp-flow/concatenateDataProducts.sh
     dataProducts/
 ```
