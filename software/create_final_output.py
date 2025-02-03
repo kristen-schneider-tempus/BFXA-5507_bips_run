@@ -69,7 +69,7 @@ def read_unique_input(unique_orderhub_ids):
         print(f"File {unique_orderhub_ids} not found.")
         exit(1)
 
-    # read in data
+    # read as a csv file and return the dataframe
     unique_df = pd.read_csv(unique_orderhub_ids)
     
     # remove analysis_id column--we get the analysis id from the bips output
@@ -101,6 +101,7 @@ def read_bips_input(bips_input):
         print(f"File {bips_input} not found.")
         exit(1)
 
+    # read as a csv file and return the dataframe
     bips_df = pd.read_csv(bips_input)
     return bips_df
 
@@ -120,6 +121,7 @@ def read_bips_output(bips_output):
         print(f"File {bips_output} not found.")
         exit(1)
 
+    # read as a csv file and return the dataframe
     bips_output_df = pd.read_csv(bips_output)
     # change the column name from "analysis.id" to "analysis_id"
     bips_output_df.rename(columns={'analysis.id': 'analysis_id'}, inplace=True)
@@ -144,6 +146,7 @@ def read_parsed_nohup_output(parsed_nohup_output):
         print(f"File {parsed_nohup_output} not found.")
         exit(1)
 
+    # read as a csv file and return the dataframe
     parsed_nohup_df = pd.read_csv(parsed_nohup_output)
     return parsed_nohup_df
 
@@ -164,8 +167,7 @@ def read_combined_output(combined_data_products):
 
     # read as a tsv file
     combined_df = pd.read_csv(combined_data_products, sep='\t')
-    # rename "dp_id" to "rfnd-combined-myb-expression-features"
-    combined_df.rename(columns={'dp_id': 'rfnd-combined-myb-expression-features'}, inplace=True)
+    
     # rename "analysis_id" to "analysis_id_2"
     combined_df.rename(columns={'analysis_id': 'analysis_id_2'}, inplace=True)
     return combined_df
