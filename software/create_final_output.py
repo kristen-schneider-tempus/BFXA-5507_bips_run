@@ -61,6 +61,15 @@ def read_unique_input(unique_orderhub_ids):
 
     @param unique_orderhub_ids: The file containing unique sample information
     '''
+    # check if file exists, if not, exit with error
+    try:
+        with open(unique_orderhub_ids) as f:
+            pass
+        f.close()
+    except FileNotFoundError:
+        print(f"File {unique_orderhub_ids} not found.")
+        exit(1)
+
     # read in data
     unique_df = pd.read_csv(unique_orderhub_ids)
     
@@ -84,6 +93,15 @@ def read_bips_input(bips_input):
 
     @param bips_input: The file containing the BIPS input
     '''
+    # check if file exists, if not, exit with error
+    try:
+        with open(bips_input) as f:
+            pass
+        f.close()
+    except FileNotFoundError:
+        print(f"File {bips_input} not found.")
+        exit(1)
+
     bips_df = pd.read_csv(bips_input)
     return bips_df
 
@@ -94,6 +112,15 @@ def read_bips_output(bips_output):
     
     @param bips_output: 
     '''
+    # check if file exists, if not, exit with error
+    try:
+        with open(bips_output) as f:
+            pass
+        f.close()
+    except FileNotFoundError:
+        print(f"File {bips_output} not found.")
+        exit(1)
+
     bips_output_df = pd.read_csv(bips_output)
     # change the column name from "analysis.id" to "analysis_id"
     bips_output_df.rename(columns={'analysis.id': 'analysis_id'}, inplace=True)
@@ -105,6 +132,15 @@ def read_parsed_nohup_output(parsed_nohup_output):
 
     @param parsed_nohup_output: The parsed output file from MYB
     '''
+    # check if file exists, if not, exit with error
+    try:
+        with open(parsed_nohup_output) as f:
+            pass
+        f.close()
+    except FileNotFoundError:
+        print(f"File {parsed_nohup_output} not found.")
+        exit(1)
+
     parsed_nohup_df = pd.read_csv(parsed_nohup_output)
     return parsed_nohup_df
 
@@ -114,6 +150,15 @@ def read_combined_output(combined_data_products):
 
     @param combined_data_products: The combined data products file
     '''
+    # check if file exists, if not, exit with error
+    try:
+        with open(combined_data_products) as f:
+            pass
+        f.close()
+    except FileNotFoundError:
+        print(f"File {combined_data_products} not found.")
+        exit(1)
+
     # read as a tsv file
     combined_df = pd.read_csv(combined_data_products, sep='\t')
     # rename "dp_id" to "rfnd-combined-myb-expression-features"
