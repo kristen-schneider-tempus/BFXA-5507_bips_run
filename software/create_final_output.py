@@ -78,9 +78,6 @@ def read_unique_input(unique_orderhub_ids):
     # remove fastq_url column--we can get this from the bips input renamed correctly with gcs
     unique_df.drop('fastq_url', axis=1, inplace=True)
 
-    # remove the 'orderhub_id'--we can get this from the bips input
-    unique_df.drop('orderhub_id', axis=1, inplace=True)
-
     # remove the 'assay' column--we can get this from the bips input
     unique_df.drop('assay', axis=1, inplace=True)
     return unique_df
