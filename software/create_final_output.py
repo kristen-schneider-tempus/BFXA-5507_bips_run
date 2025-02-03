@@ -21,9 +21,9 @@ def main():
     combined_data_products = args.combinedDataProdudcts
     final_output = args.final_output
 
-    # this df contains orderhub ids AND an OLD analysis id (not to be used going forward)
+    # this df contains ORDERHUB_ID on which we can join other dataframes
     unique_df = read_unique_input(unique_orderhub_ids)
-    # this df contains only orderhub ids
+    # this df contains ORDERHUB_ID on which we can join other dataframes
     bips_input_df = read_bips_input(bips_input)
     # join the unique and both BIPS dataframes on orderhub_id
     joined_df_ohid = pd.merge(unique_df, bips_input_df, on='orderhub_id', how='left')
@@ -45,18 +45,36 @@ def main():
     # combine the two joined df on analysis_id
     joined_df_anid = pd.merge(joined_df_ohid, joined_df_myb_exp, on='analysis_id', how='left')
 
+    # reordered columns
+    # 1. joined_df_anid['orderhub_id']
+    # 2. joined_df_anid['analysis_id']
+    # 3. remaining columns from joined_df_anid
+
+    final_output_df = joined_df_anid[['orderhub_id', 'analysis_id'] + [col for col in joined_df_anid.columns if col not in ['orderhub_id', 'analysis_id']]]
+
     # write the merged dataframe to a csv file
-    write_merged_df(joined_df_anid, final_output)
+    write_merged_df(final_output_df, final_output)
     
 def read_unique_input(unique_orderhub_ids):
     '''
-    Use pandas to read the unique file and store the information
+    Use pandas to read the unique file and store relevant information.
 
     @param unique_orderhub_ids: The file containing unique sample information
     '''
+    # read in data
     unique_df = pd.read_csv(unique_orderhub_ids)
-    # remove analysis_id column
+    
+    # remove analysis_id column--we get the analysis id from the bips output
     unique_df.drop('analysis_id', axis=1, inplace=True)
+
+    # remove fastq_url column--we can get this from the bips input renamed correctly with gcs
+    unique_df.drop('fastq_url', axis=1, inplace=True)
+
+    # remove the 'orderhub_id'--we can get this from the bips input
+    unique_df.drop('orderhub_id', axis=1, inplace=True)
+
+    # remove the 'assay' column--we can get this from the bips input
+    unique_df.drop('assay', axis=1, inplace=True)
     return unique_df
 
 
@@ -72,8 +90,8 @@ def read_bips_input(bips_input):
 
 def read_bips_output(bips_output):
     '''
-    Read the parsed csv file from bips.
-
+    Read the parsed csv file from bips and get the analsis_id ONLY.
+    
     @param bips_output: 
     '''
     bips_output_df = pd.read_csv(bips_output)
