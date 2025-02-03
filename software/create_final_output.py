@@ -25,14 +25,13 @@ def main():
     unique_df = read_unique_input(unique_orderhub_ids)
     # this df contains ORDERHUB_ID on which we can join other dataframes
     bips_input_df = read_bips_input(bips_input)
-    # join the unique and both BIPS dataframes on orderhub_id
+    # JOIN the unique and both BIPS dataframes on orderhub_id
     joined_df_ohid = pd.merge(unique_df, bips_input_df, on='orderhub_id', how='left')
 
-    # this contains the NEW analysis_id
+    # this df contains the ANALYSIS_ID and ORDERHUB_ID on which we can join other dataframes
     bips_output_df = read_bips_output(bips_output)
-    # use orderhub_id to join the two dataframes, but only pull 'analysis_id' from bips_output_df
-    joined_df_ohid = pd.merge(joined_df_ohid, bips_output_df[['orderhub_id', 'analysis_id']], on='orderhub_id', how='left')
-
+    # JOIN the joined_df_ohid and bips_output_df on orderhub_id (now we also have an analysis id)
+    joined_df_ohid = pd.merge(joined_df_ohid, bips_output_df, on='orderhub_id', how='left')
 
     # this df contains rfnd-combined-myb-expression-features
     parsed_nohup_df = read_parsed_nohup_output(parsed_nohup_output)
@@ -108,7 +107,7 @@ def read_bips_input(bips_input):
 
 def read_bips_output(bips_output):
     '''
-    Read the parsed csv file from bips and get the analsis_id ONLY.
+    Read the parsed csv file from bips output and get ONLY the analsis_id and orderhub_id.
     
     @param bips_output: 
     '''
@@ -124,6 +123,10 @@ def read_bips_output(bips_output):
     bips_output_df = pd.read_csv(bips_output)
     # change the column name from "analysis.id" to "analysis_id"
     bips_output_df.rename(columns={'analysis.id': 'analysis_id'}, inplace=True)
+
+    # only keep the 'analysis_id' and 'orderhub_id' columns
+    bips_output_df = bips_output_df[['analysis_id', 'orderhub_id']]
+    
     return bips_output_df
 
 def read_parsed_nohup_output(parsed_nohup_output):
