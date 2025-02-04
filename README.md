@@ -8,8 +8,8 @@ Table below in progress.
 | run-BIPS | Run BIPS with the properly formatted input CSV file from `transform_to_bips.py` and a provided transform override.                                                                                              | `run_bips.sh`                          | to-BIPS.output transform_override_rnaonco…                           | BIPS_logs/ orderhubID_A.log orderhubID_B.log orderhubID_C.log …                                            | [Step 4: Run BIPS](https://github.com/kristen-schneider-tempus/bips_myb_run_sanbox/blob/run_bips/README.md#step-4-run-bips)                                                                                  |
 | parse_bips               | Parse the BIPS log files into one CSV with relevant information. The extracted fields from this step can be modified to include more, fewer, or different information.                                       | `parse_bips_log.py`                    | BIPS_logs/ orderhubID_A.log orderhubID_B.log orderhubID_C.log …      | parsed_bips.csv<br>**DATA IN THIS FILE IS HELPFUL FOR FINAL SUMMARY FILE**                                    | Make this generalizable for more than one data product type (e.g. input of interesting data products)      |
 | get_sample_ids           | Get a list of analysis (workflow) IDs from the parse_bips.csv file                                                                                                                                          | `extract_id.py`                        | parsed_bips.csv                                                     | sample_ids.csv                                                                                             |                                                                                                           |
-| run_MYB                  | Execute MYB on the set of sample ID                                                                                                                                                                         | bioinf-myb-poison-exon-detection runFromSampleSheet.sh |                                                                      | nohup.out - JSON-esc output output.txt - analysis-id, dp-type, dp-id                                       |                                                                                                           |
-| parse_nohup              | Get relevant information from nohup.out nexflowSessionID, sre_star_splice_junction (dp ID) sre_bam_rna_pseudobam (dp ID) sre_rna_qc_summary_stat (dp ID)                                                    | parseNoHupOut.sh                     | nohup.out                                                           | parsedNoHup.csv<br>**DATA IN THIS FILE IS HELPFUL FOR FINAL SUMMARY FILE**                                   | Make this generalizable for more than one data product type (e.g. input of interesting data products)      |
+| run_MYB                  | Execute MYB on the set of sample ID                                                                                                                                                                         | bioinf-myb-poison-exon-detection runFromSampleSheet.sh |                                                                      | nohup.out - JSON-esc output output.txt - analysis-id, dp-type, dp-id                                       | [Step 8: MYB Execution](https://github.com/kristen-schneider-tempus/bips_myb_run_sanbox/blob/run_bips/README.md#step-7-myb-execution)                                                                                                         |
+| parse_nohup              | Get relevant information from nohup.out nexflowSessionID, sre_star_splice_junction (dp ID) sre_bam_rna_pseudobam (dp ID) sre_rna_qc_summary_stat (dp ID)                                                    | parseNoHupOut.sh                     | nohup.out                                                           | parsedNoHup.csv<br>**DATA IN THIS FILE IS HELPFUL FOR FINAL SUMMARY FILE**                                   | [Step 9: Parse Nohup.out](https://github.com/kristen-schneider-tempus/bips_myb_run_sanbox/blob/run_bips/README.md#step-9-parse-nohup.out)        |
 | download_dp              | Get the nexflowSessionID from nohup.out DPS search using workflow-id=nexflowSessionID Download the dataproductID for rfnd-combined-myb-expression                                                           | parseSampleSheetouput.sh             | nohup.out dataProducts/                                              | dataProducts/ dataProductID_A.tsv(.gz) dataProductID_B.tsv(.gz) dataProductID_C.tsv(.gz) …                 | Make this generalizable for more than one data product type (e.g. input of interesting data products)      |
 | concat_dp                | Take the information from each data product file and write them all with one header to the same output. Include the dataProductID to a column at the beginning for tracking.                                 | concatenateDataProducts.sh           | dataProducts/ dataProductID_A.tsv(.gz) dataProductID_B.tsv(.gz) dataProductID_C.tsv(.gz) … | combinedData.tsv<br>**DATA IN THIS FILE IS HELPFUL FOR FINAL SUMMARY FILE**                                 |                                                                                                           |
 | final_merge (under maintenance) | Create a final output file which includes information relevant to the entire run (e.g. order hub ID, analysis-id, analyte, …, dataProductID, etc.)                                                   | create_final_output.py               |                                                                      |                                                                                                             |                                                                                                           |
@@ -55,7 +55,7 @@ python software/transform_to_bips.py
     -t rad
 ```
 
-## Step 4: Run BIPs
+## Step 4: Run BIPS
 [BIPS](https://docs.google.com/document/d/1VwEUHJdGHYeyPJwR0_43xiAnZmye46Vmo6CFVyXw7OQ/edit?tab=t.0) is a Tempus pipeline tool that is used to ...TODO
 - Read more about BIPS [here](https://github.com/tempuslabs/bioinf-analysis-utils/tree/develop/doc/src/orch/bips_adapter).
 - Find examples for BIPS input and transformoverride [here](https://drive.google.com/drive/folders/1TuARTyG3x3z9KszmUMZRuxvE5A1F6Wlc).
@@ -78,7 +78,7 @@ bips xxx-xxx-xxx-bips_input.csv
     --env staging
 ```
 
-## Step 6: Convert BIPs output logs into a csv
+## Step 5: Convert BIPs output logs into a csv
 
 # MYB_execution
 [Link to jira ticket BFXA-5655](https://tempuslabs.atlassian.net/browse/BFXA-5655?atlOrigin=eyJpIjoiOTZmYTYwNmJjYmFjNDM1ZmE2OGM0YTVjMjY4YjcxZjciLCJwIjoiaiJ9)
@@ -87,7 +87,7 @@ bips xxx-xxx-xxx-bips_input.csv
 
 [MYB-poison-exon-detecction Repository](https://github.com/tempuslabs/bioinf-myb-poison-exon-detection])
 
-## Step 1: Get list of sample IDs from BIPS output csv
+## Step 6: Get list of sample IDs from BIPS output csv
 Use the output from the BIPS run to extract the sample IDs (analysis-id).
 ```
 python software/extract_id
@@ -95,7 +95,7 @@ python software/extract_id
     -o sample_ids.txt
 ```
 
-## STEP 2:
+## STEP 7: MYB Execution
 
 ```
 nohup ./rp-flow/runFromSampleSheet.sh
@@ -103,7 +103,7 @@ nohup ./rp-flow/runFromSampleSheet.sh
     output.txt &
 ```
 
-## Step 3: 
+## Step 8: Check MYB execution
 - Check the output.txt for `analysis-id,dataProductType,dataProductID`
 - Check nohup.out for a series of JSON files concatenated between run status.
 - !! Wait for MYB to complete running !!
@@ -117,7 +117,7 @@ nohup ./rp-flow/runFromSampleSheet.sh
 - In the nohup.out file, there will be a session id associated with id / analysis-id
 
 
-## Step 4: 
+## Step 9: Parse nohup.out
 Parse nohup.out to get a list of `nextflowSessionId,rfnd-combined-myb-expression-features,sre_star_splice_junction,sre_expression_gene_normalized,sre_bam_rna_pseudobam,sre_rna_qc_summary_stat`.
 ```
 ./rp-flow/parseNoHup.sh
@@ -125,7 +125,7 @@ Parse nohup.out to get a list of `nextflowSessionId,rfnd-combined-myb-expression
     parsedNoHup.csv
 ```
 
-## Step 5:
+## Step 10: Download data products
 Download the data products matching `type=rfnd-combined-myb-expression-features`
 ```
 mkdir dataProducts
@@ -160,10 +160,21 @@ dps download
     --download-dir "dataProducts/"
 ```
 
-## Step 6:
+## Step 11: Combine MYB data
 Combine the `type=rfnd-combined-myb-expression-features` data products into a single file
 ```
 ./rp-flow/concatenateDataProducts.sh
     dataProducts/
 ```
 `combinedData.tsv` should appear in working directory.
+
+## Step 12: Create Final Output
+```
+python create_final_output.py
+    -u /path/to/unique_samples.csv
+    -b /path/to/bips_input.csv
+    -l /path/to/bips_output.csv
+    -p /path/to/parsed_no_hup.csv
+    -c /path/to/combined_data.tsv
+    -f /path/to/final_output.csv
+```
