@@ -60,6 +60,11 @@ python software/transform_to_bips.py
 - Read more about BIPS [here](https://github.com/tempuslabs/bioinf-analysis-utils/tree/develop/doc/src/orch/bips_adapter).
 - Find examples for BIPS input and transformoverride [here](https://drive.google.com/drive/folders/1TuARTyG3x3z9KszmUMZRuxvE5A1F6Wlc).
 - Look in splunk [here](https://tempus.splunkcloud.com/en-US/app/search/transform_execution_and_logs_by_analysis_id?form.timespan.earliest=-24h&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.transform-harness.harness.transform-harness&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.dps.dps-provider&form.severity_token=level%3Ddebug&form.severity_token=level%3Dinfo&form.severity_token=level%3D%22warn*%22&form.severity_token=level%3Derror&form.selectedanalysisid=agkhkshxzjfn3gxvjcibo2ba5m) and [here](https://tempus.splunkcloud.com/en-US/app/search/cs_transformhub_transforms_by_execution_id?form.timespan.earliest=%40y&form.timespan.latest=now&form.log_type_token=NOT%20loggerName%3Dopt.tempus.transform.harness.node_modules.%40tempus.transformhub-tools.dist.lib.utils.performance-measures&form.log_type_token=NOT%20loggerName%3Dtransformhub.lib.dps.dps-provider&form.severity_token=level%3Derror&form.execution_id=d20178f7-0ac4-4611-8908-d8d86addc1c6) for more information about an BIPS run.
+- To follow job more closely:
+1. go to AWS, login as `Account: tempus-bioinformatics-pipeline-staging (227117204443)`
+2. go to state machines and search for the state machine included in the BIPS log (e.g. `"executionArn": "arn:aws:states:us-east-1:227117204443:execution:rp-execute-analysis:7913a415-3ad2-47b5-8d7d-2cbbbdb1e339", ...` would be `rp-execute-analysis`)
+3. search the state machine ID (e.g. log above would be `7913a415-3ad2-47b5-8d7d-2cbbbdb1e339`)
+4. identify if all the steps in the transform (i.e. transform-override file) got executed successfully.
 
 ```
 TODO: finish the script to runs bips
